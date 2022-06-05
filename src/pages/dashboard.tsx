@@ -104,7 +104,7 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
                 {
                     (!!categories && categories.length > 0) ?
                     categories.map(category=>(
-                        <Flex alignItems="center" pl="2" onClick={()=>{ Router.push(`/items/${category.id}`) }} _hover={{cursor:"pointer"}} bg={"#CCC"}
+                        <Flex key={category.id} alignItems="center" pl="2" onClick={()=>{ Router.push(`/items/${category.id}`) }} _hover={{cursor:"pointer"}} bg={"#CCC"}
                          borderRadius="10" color="black"  w="100%" h="16" >
                         
                             <Text as="h3" fontSize={"20"} >{category?.name}</Text>

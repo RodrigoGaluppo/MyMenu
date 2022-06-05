@@ -110,7 +110,7 @@ const Items: NextPage<{user:Iuser}> = (props) => {
                 {
                     (!!items && items.length > 0) ?
                     items.map(item=>(
-                        <Flex alignItems="center" pl="2" bg={"#CCC"} borderRadius="10" color="black"  w="100%" h="20" >
+                        <Flex key={item.id} alignItems="center" pl="2" bg={"#CCC"} borderRadius="10" color="black"  w="100%" h="20" >
                             <Stat>
                                 <StatLabel fontSize={"24"} >{item?.name}</StatLabel>
                                 <StatNumber fontStyle={"20"} > {item?.price} € </StatNumber>
