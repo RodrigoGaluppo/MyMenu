@@ -117,7 +117,7 @@ const SignIn: NextPage = () => {
             </Input>
           </FormControl>
 
-          <Button color={"black"}  type='submit' mt="6" bg={"#CCC"} >Criar</Button>
+          <Button color={"black"}  type='submit' mt="6" bg={"#CCC"} >Submit</Button>
 
         </Stack>
         

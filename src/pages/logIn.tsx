@@ -90,7 +90,7 @@ const SignIn: NextPage = () => {
             <a><Text pt={"2"} pb="2" textAlign={"left"} as="p" color={"pink"} fontSize={"1xl"} >Create an Account</Text></a>
           </Link>
 
-          <Button color={"black"}  type='submit' mt="6" bg={"#CCC"} >Entrar</Button>
+          <Button color={"black"}  type='submit' mt="6" bg={"#CCC"} >Sign in</Button>
 
         </Stack>
         
