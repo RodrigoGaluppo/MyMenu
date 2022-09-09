@@ -61,11 +61,7 @@ const UserEdit = ({onClose}:{onClose: () => void}) => {
     api.put("user",{
         id:user.id,
         name:data.name,
-        email:data.email,
-        menuName:data.menuName,
-        bgColor:bgColor,
-        fontColor:fontColor,
-        frontColor:frontColor
+        email:data.email
     })
     .then(()=>{
         toast({
@@ -127,13 +123,13 @@ const UserEdit = ({onClose}:{onClose: () => void}) => {
   return (
     <Flex as="form" color="white" px="4" my="10" w="100%" maxW="580"  flexDir={"column"} onSubmit={handleSubmit(handleSubmited)} >
 
-        <Text pt={"2"} pb="6" textAlign={"center"} mt="8" as="h2" fontSize={"2xl"} >Get Menu Link</Text>
+        <Text pt={"2"} pb="6" textAlign={"center"} mt="8" as="h2" fontSize={"2xl"} >Get Site Link</Text>
 
         <Stack   spacing="6" >
 
             <Flex>
-                <Text  as="span" pr="4" fontSize={"xl"} >Menu Url: </Text>
-                <Link href={`https://my--menu.herokuapp.com/view/${user.id}`} >
+                <Text  as="span" pr="4" fontSize={"xl"} >Site Url: </Text>
+                <Link href={`https://paraisodapenha.herokuapp.com/`} >
                     <a>
                         <Text  as="p" color={"pink.500"} fontSize={"xl"} >here</Text>
                     </a>
@@ -143,7 +139,7 @@ const UserEdit = ({onClose}:{onClose: () => void}) => {
             <Flex  >
                 <div ref={qrCodeRef} >
 
-                <QRCode value={`https://my--menu.herokuapp.com/view/${user.id}`} ></QRCode>
+                <QRCode value={`https://paraisodapenha.herokuapp.com/`} ></QRCode>
                 </div>
                 
             </Flex>
@@ -154,7 +150,7 @@ const UserEdit = ({onClose}:{onClose: () => void}) => {
         </Stack>
 
 
-        <Text pt={"2"} pb="6"  mt="8" textAlign={"center"} as="h2" fontSize={"2xl"} >Edit User Info</Text>
+        <Text pt={"2"} pb="6"  mt="8" textAlign={"center"} as="h2" fontSize={"2xl"} >User Info</Text>
         <Stack   spacing="6" >
 
             <FormControl>
@@ -176,50 +172,11 @@ const UserEdit = ({onClose}:{onClose: () => void}) => {
             <hr/>
         </Stack>
         
-        <Text pt={"2"} pb="6" textAlign={"center"} mt="8" as="h2" fontSize={"2xl"} >Edit Menu Info</Text>
-
-        <Stack   spacing="6" >
-
-            <FormControl>
-                <FormLabel htmlFor='name' >Menu Name</FormLabel>
-                <Input color={"black"}  p="2" focusBorderColor='blue.500'
-                    {...register("menuName")} defaultValue={user.menuName}
-                bgColor={"gray.400"} variant="flushed" _hover={{bgColor:"gray.400"}} size="lg" borderColor={"gray.900"}  type="text" >
-                </Input>
-            </FormControl>
-
-            <FormControl>
-                <Flex alignItems={"center"} w="100%" >
-                    <Text pr="8" fontSize={"18"} >Background Color</Text>
-                    <ColorPicker defaultColor={user.bgColor}  colors={ColorsArray} onChange={(color)=>{
-                        setBgColor(color)
-                    }} ></ColorPicker>
-                </Flex>
-            </FormControl>
-
-            <FormControl>
-                <Flex alignItems={"center"} w="100%" >
-                    <Text pr="10" fontSize={"18"} >Front Page Color</Text>
-                    <ColorPicker defaultColor={user.frontColor}  colors={ColorsArray} onChange={(color)=>{
-                        setFrontColor(color)
-                    }} ></ColorPicker>
-                </Flex>
-            </FormControl>
-
-            <FormControl>
-                <Flex alignItems={"center"} w="100%" >
-                    <Text pr="24" fontSize={"18"} >Text Color</Text>
-                    <ColorPicker defaultColor={user.fontColor} colors={ColorsArray} onChange={(color)=>{
-                        setFontColor(color)
-                    }} ></ColorPicker>
-                </Flex>
-            </FormControl>
-            <hr/>
-        </Stack>
+       
    
         
 
-        <Button color={"black"}  type='submit' mt="10" bg={"#CCC"} >Edit</Button>
+        <Button color={"black"} disabled  type='submit' mt="10" bg={"#CCC"} >Edit</Button>
     </Flex>
   )
 }

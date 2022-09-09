@@ -27,7 +27,7 @@ export function Header({user}:{user:Iuser})
             <Text _hover={{cursor:"pointer"}} 
             fontSize={"3xl"} onClick={()=>{Router.push("/dashboard")}}
             color={"blue.500"} as="span" fontWeight="bold" letterSpacing={"tight"} w="64" >
-                my
+                paraiso
                 <Text as="span" color={"white"}  >
                     Menu
                 </Text>

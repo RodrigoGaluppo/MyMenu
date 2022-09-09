@@ -14,8 +14,8 @@ import { useEffect, useState } from 'react'
 import AuthContext, { Iuser } from '../hooks/AuthContext'
 import api from '../services/apiClient'
 
-interface ICategory{
-    id: string,
+interface Iroom{
+    _id: string,
     name: string
 }
 
@@ -23,15 +23,15 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
 
   const { onOpen, onClose, isOpen } = useDisclosure() 
   const toast = useToast()
-  const [categories, setCategories] = useState<ICategory[]>([])
+  const [rooms, setrooms] = useState<Iroom[]>([])
 
-  const removeCategory = (category_id:string)=>
+  const removeroom = (room_id:string)=>
   {
-    api.delete(`category/${category_id}`)
+    api.delete(`room/${room_id}`)
     .then(()=>{
         toast({
             title: 'Sucess',
-            description: "category deleted successfully",
+            description: "room deleted successfully",
             status: 'success',
             duration: 3000,
             isClosable: true,
@@ -41,7 +41,7 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
     .catch(()=>{
         toast({
             title: 'Error',
-            description: "could not delete the category",
+            description: "could not delete the room",
             status: 'error',
             duration: 3000,
             isClosable: true,
@@ -53,11 +53,11 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
   useEffect(()=>{
       
     if(!props.user)
-        Router.push("/logIn")
+        Router.push("/")
 
-    api.get("category")
+    api.get("room")
     .then((res)=>{
-        setCategories(res.data.categories)
+        setrooms(res.data.rooms)
     })
     .catch(()=>{
         toast({
@@ -80,8 +80,8 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
             <Stack spacing={"8"}   overflowY={"auto"} px="6" py="16" maxW="980" m="0 auto" >
                 
                 <Flex w="100%"  justifyContent={"center"} >
-                    <Text mr="auto"   justifySelf={"center"} fontSize={"2xl"} mb="3" textAlign="center" as="h1" >Categories</Text>
-                    <Button onClick={onOpen}  ml="auto" colorScheme={"blue"} >Add Category</Button>
+                    <Text mr="auto"   justifySelf={"center"} fontSize={"2xl"} mb="3" textAlign="center" as="h1" >rooms</Text>
+                    <Button onClick={onOpen}  ml="auto" colorScheme={"blue"} >Add room</Button>
                         <Popover
                             isOpen={isOpen} 
                             onOpen={onOpen}
@@ -102,15 +102,17 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
                 </Flex>
 
                 {
-                    (!!categories && categories.length > 0) ?
-                    categories.map(category=>(
-                        <Flex key={category.id} alignItems="center" pl="2" onClick={()=>{ Router.push(`/items/${category.id}`) }} _hover={{cursor:"pointer"}} bg={"#CCC"}
+                    
+                    (!!rooms && rooms.length > 0) ?
+                    
+                    rooms.map(room=>(
+                        <Flex key={room._id} alignItems="center" pl="2" onClick={()=>{ Router.push(`/rooms/${room._id}`) }} _hover={{cursor:"pointer"}} bg={"#CCC"}
                          borderRadius="10" color="black"  w="100%" h="16" >
                         
-                            <Text as="h3" fontSize={"20"} >{category?.name}</Text>
-
+                            <Text as="h3" fontSize={"20"} >{room?.name}</Text>
+                            
                             <Icon as={FaTrash} fontSize="20" ml="auto" mr="4" 
-                                color={"red.700"} _hover={{cursor:"pointer"}} onClick={()=>{removeCategory(category.id)}} >  
+                                color={"red.700"} _hover={{cursor:"pointer"}} onClick={()=>{removeroom(room._id)}} >  
                             </Icon>
                            
                         </Flex>
@@ -118,7 +120,7 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
 
                     :
 
-                    <Text>Add new categories to start</Text>
+                    <Text>Add new rooms to start</Text>
                 }
                
             </Stack>
@@ -131,8 +133,8 @@ const DashBoard: NextPage<{user:Iuser}> = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx)=>
 {
-    const token = parseCookies(ctx)["@myMenu:token"]
-    const user = parseCookies(ctx)["@myMenu:user"]
+    const token = parseCookies(ctx)["@paraisoMenu:token"]
+    const user = parseCookies(ctx)["@paraisoMenu:user"]
 
     if(!user){
         return {

@@ -42,8 +42,8 @@ export const AuthProvider = ({children}: {children:React.ReactNode})=>{
     const [data,setData] = useState<IAuthState>( ()=>{
         const cookies = parseCookies()
 
-        const token = cookies["@myMenu:token"]
-        const user = cookies["@myMenu:user"]
+        const token = cookies["@paraisoMenu:token"]
+        const user = cookies["@paraisoMenu:user"]
         
         if (token && user){
             return { token , user:JSON.parse(user)}
@@ -60,12 +60,12 @@ export const AuthProvider = ({children}: {children:React.ReactNode})=>{
         })
         const {token,user} = res.data
         
-        setCookie(undefined, "@myMenu:token", token,
+        setCookie(undefined, "@paraisoMenu:token", token,
         {
             maxAge: 60 * 60 * 1 // 1 hour
         }
         )
-        setCookie(undefined, "@myMenu:user", JSON.stringify(user),
+        setCookie(undefined, "@paraisoMenu:user", JSON.stringify(user),
         {
             maxAge: 60 * 60 * 1 // 1 hour
         }
@@ -74,9 +74,9 @@ export const AuthProvider = ({children}: {children:React.ReactNode})=>{
         const cookies = parseCookies()
         api.interceptors.request.use((config) => {
 
-            if(!!cookies["@myMenu:token"])
+            if(!!cookies["@paraisoMenu:token"])
             {
-                const token = cookies["@myMenu:token"]
+                const token = cookies["@paraisoMenu:token"]
                 if(!!config.headers)
                 {
                     config.headers.Authorization = `Bearer ${token}`
@@ -91,10 +91,10 @@ export const AuthProvider = ({children}: {children:React.ReactNode})=>{
 
     const signOut = useCallback(()=>{
 
-        Router.push("/logIn")
+        Router.push("/")
 
-        destroyCookie(undefined, "@myMenu:token")
-        destroyCookie(undefined, "@myMenu:user")
+        destroyCookie(undefined, "@paraisoMenu:token")
+        destroyCookie(undefined, "@paraisoMenu:user")
 
         setData({} as IAuthState)
         /* eslint-disable react-hooks/exhaustive-deps */       
@@ -102,9 +102,9 @@ export const AuthProvider = ({children}: {children:React.ReactNode})=>{
 
     const updateUser = (Newuser:Iuser)=>{
 
-        destroyCookie(undefined, "@myMenu:user")
+        destroyCookie(undefined, "@paraisoMenu:user")
 
-        setCookie(undefined, "@myMenu:user", JSON.stringify(data.user))
+        setCookie(undefined, "@paraisoMenu:user", JSON.stringify(data.user))
         
         setData({user:Newuser,token:data.token})
         
